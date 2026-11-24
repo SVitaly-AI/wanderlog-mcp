@@ -77,26 +77,8 @@ async function getOrCreateContext(cookieRaw: string): Promise<AppContext> {
   }
 }
 
-// --- extract cookie from Authorization header or query param ---
-
-function extractCookie(req: {
-  headers: Record<string, string | undefined>;
-  url?: string;
-}): string | null {
-  const auth = req.headers.authorization;
-  if (auth) {
-    const match = auth.match(/^Bearer\s+(.+)$/i);
-    if (match?.[1]) return match[1];
-  }
-
-  // Fall back to ?token= query parameter (for clients without Bearer support)
-  if (req.url) {
-    const url = new URL(req.url, "http://localhost");
-    const token = url.searchParams.get("token");
-    if (token) return token;
-  }
-
-  return null;
+function extractCookie(authorization: string | undefined): string | null {
+  return authorization?.match(/^Bearer\s+(.+)$/i)?.[1] ?? null;
 }
 
 // --- HTTP server ---
@@ -108,7 +90,7 @@ async function main() {
   // the transport itself decides what's allowed per the spec.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMcp = async (req: any, res: any) => {
-    const cookie = extractCookie(req);
+    const cookie = extractCookie(req.headers.authorization);
     if (!cookie) {
       res.status(401).json({
         jsonrpc: "2.0",
