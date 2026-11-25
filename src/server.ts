@@ -61,6 +61,7 @@ export function buildServer(ctx: AppContext): McpServer {
       title: "List Wanderlog trips",
       description: listTripsDescription,
       inputSchema: listTripsInputSchema,
+      annotations: { readOnlyHint: true },
     },
     requireAuth(ctx, async (args) => listTrips(ctx, args as Parameters<typeof listTrips>[1])),
   );
@@ -71,6 +72,7 @@ export function buildServer(ctx: AppContext): McpServer {
       title: "Get a Wanderlog trip",
       description: getTripDescription,
       inputSchema: getTripInputSchema,
+      annotations: { readOnlyHint: true },
     },
     requireAuth(ctx, async (args) => getTrip(ctx, args as Parameters<typeof getTrip>[1])),
   );

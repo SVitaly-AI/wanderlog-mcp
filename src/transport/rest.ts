@@ -120,10 +120,7 @@ export class RestClient {
         tripPlan?: TripPlan;
         resources?: { geos?: Geo[] };
       }>
-    >(
-      "GET",
-      `/api/tripPlans/${encodeURIComponent(tripKey)}?clientSchemaVersion=2&registerView=true`,
-    );
+    >("GET", `/api/tripPlans/${encodeURIComponent(tripKey)}?clientSchemaVersion=2`);
     if (!env.tripPlan) {
       throw new WanderlogNotFoundError("Trip", tripKey);
     }

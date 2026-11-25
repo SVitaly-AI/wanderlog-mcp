@@ -1,5 +1,25 @@
 # wanderlog-mcp
 
+## Read-only fork
+
+This branch exposes two MCP tools: list trips and view a trip itinerary.
+
+Build this branch from the repository folder with Node.js 22 or newer:
+
+```sh
+npm ci --ignore-scripts
+npm run build
+```
+
+To run it in the ChatGPT desktop app, open **Settings → MCP servers → Add server** and select **STDIO**. Set the command to `node` and add two arguments, each with a full path on your computer:
+
+1. `--env-file=<path-to-repository>/.env`
+2. `<path-to-repository>/dist/index.js`
+
+Keep the Wanderlog session in the local, Git-ignored `.env` file as `WANDERLOG_COOKIE`. Save and restart the app, then open Codex and ask it to list your Wanderlog trips.
+
+The upstream README follows. Its installation commands use the published upstream package, and its examples include tools outside this fork's read-only mode.
+
 [![npm](https://img.shields.io/npm/v/wanderlog-mcp)](https://www.npmjs.com/package/wanderlog-mcp)
 [![npm downloads](https://img.shields.io/npm/dm/wanderlog-mcp)](https://www.npmjs.com/package/wanderlog-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
